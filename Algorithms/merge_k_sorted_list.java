@@ -1,15 +1,27 @@
-import java.util.PriorityQueue;
-import java.util.Collections;
-import java.util.Arrays;
+import java.util.*;
 
 public class merge_k_sorted_list {
-    private PriorityQueue<LinkedList> p = new PriorityQueue<>();
     
-    public mergeLists(LinkedList[] list) {
-        int n = list.length;
+    public static LinkedList<Integer> mergeLists(LinkedList[] list) {
+        PriorityQueue<Integer> p = new PriorityQueue<>();
         for(int i=0;i<list.length;i++)  {
-            p.add(list.get(i));
+            for(int j=0;j<list[i].size();j++) {
+                // System.out.println(list[i].get(j));
+                p.add((int)(list[i].get(j)));
+                // System.out.println(p.poll());
+            }
         }
+        LinkedList<Integer> l = new LinkedList<>();
+        Object[] arr = p.toArray();
+        Arrays.sort(arr);
+        System.out.println(p.size());
+        for(int i=0;i<arr.length;i++) {
+            // System.out.println(i + " " + arr[i] + " " + p.poll());
+            l.add((int)(arr[i]));
+            // p.remove();
+            // p.remove(p.peek());
+        }
+        return l;
         
     }
 
@@ -27,6 +39,8 @@ public class merge_k_sorted_list {
         lists[2].add(3);
         lists[2].add(8);
         lists[2].add(9);
+        LinkedList<Integer> res = mergeLists(lists);
+        System.out.println(res);
 
     }
 }
