@@ -5,7 +5,7 @@ public class BinaryTree {
 
         public Node(int d) {
             data = d;
-            left = right =null;
+            left = right = null;
         }
     }
     Node root;
