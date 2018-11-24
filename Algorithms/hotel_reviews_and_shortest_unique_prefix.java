@@ -28,7 +28,7 @@ class CompareCount implements Comparator<struct> {
     }
 }
 
-public class Trie {
+class Trie {
     Trie[] arr;
     boolean isEndOfWord;
     int count;
@@ -72,6 +72,17 @@ public class Trie {
         }
     }
 
+    int prefix(String str) {
+        Trie root = this;
+        for(int i=0;i<str.length();i++) {
+            int j = str.charAt(i) - 'a';
+            if(root.arr[j].count == 1 || root.arr[j]==null)
+                return i;
+            root = root.arr[j];
+        }
+        return -1;
+    }
+
     boolean delete(String str, int index) {
         if (index == str.length()) {
             if (!this.isEndOfWord)
@@ -100,37 +111,46 @@ public class Trie {
         return true;
     }
 
-    // static void solution(String a, String[] b) {
-    //     String[] res = a.split("_");
-    //     Trie o = new Trie();
-    //     for (String i : res)
-    //         o.insert(i);
-    //     struct[] st = new struct[b.length];
-    //     for (int j = 0; j < b.length; j++) {
-    //         String sp[] = b[j].split("_");
-    //         st[j] = new struct(j);
-    //         for (String p : sp) {
-    //             if (o.search(p, 0))
-    //                 st[j].count++;
-    //         }
-    //     }
+    static void solution(String a, String[] b) {
+        String[] res = a.split("_");
+        Trie o = new Trie();
+        for (String i : res)
+            o.insert(i);
+        struct[] st = new struct[b.length];
+        for (int j = 0; j < b.length; j++) {
+            String sp[] = b[j].split("_");
+            st[j] = new struct(j);
+            for (String p : sp) {
+                if (o.search(p, 0))
+                    st[j].count++;
+            }
+        }
 
-    //     Arrays.sort(st, new CompareCount());
+        Arrays.sort(st, new CompareCount());
 
-    //     for (struct i : st)
-    //         System.out.println(i.count + " " + i.index);
-    //     // System.out.println(st[2].count);
-    // }
+        for (struct i : st)
+            System.out.println(i.count + " " + i.index);
+        // System.out.println(st[2].count);
+    }
 
     public static void main(String[] args) {
         String a = "cool_ice_wifi";
         String[] b = new String[] { "water_is_cool", "wifi", "cold_ice_drink", "cool_wifi_speed", "cool_ice_wifi_jaihind_cool" };
         // solution(a, b);
         Trie o = new Trie();
+        String[] str = {"zebra", "dog", "dove", "duck"};
         o.insert("zebra");
-        o.insert("hell");
-        String str = "";
-        o.search("hell", 0, str);
-        System.out.println(str);
+        o.insert("dog");
+        o.insert("dove");
+        o.insert("duck");
+        for(int j=0; j<str.length;j++) {
+            int z = o.prefix(str[j]);
+            for(int i=0;i<=z;i++)
+                System.out.print(str[j].charAt(i));
+            System.out.println();
+        }
+        // String str = "";
+        // o.search("hell", 0, str);
+        // System.out.println(str);
     }
 }
