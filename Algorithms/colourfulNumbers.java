@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class twoSum {
+public class colourfulNumbers {
     public static boolean pair(int a) {
         int count =0;
         int temp = a;
